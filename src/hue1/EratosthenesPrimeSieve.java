@@ -17,18 +17,24 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
         System.out.println("Geben sie die maximale Höhe ein:");
         int hoehe = Integer.parseInt(sc.nextLine());
         EratosthenesPrimeSieve erat = new EratosthenesPrimeSieve(hoehe);
-        erat.array[0] = false;
-        erat.array[1] = false;
 
-        for (int i = 0; i < erat.array.length; i++) {
+        for (int i = 2; i < erat.array.length; i++) {
             if (erat.isPrime(i) == true) {
-                erat.array[i] = false;
+                erat.array[i] = true;
                 for (int j = 0; j < erat.array.length; j++) {
                     if (i * j < erat.maxHoehe) {
-                        erat.array[i * j] = false;
+                        int x = i * j;
+                        erat.array[x] = false;
                     }
+
                 }
             }
+        }
+        for (int i = 0; i < erat.array.length; i++) {
+            if (erat.array[i] == true) {
+                System.out.println(i);
+            }
+
         }
         erat.printPrimes();
     }
