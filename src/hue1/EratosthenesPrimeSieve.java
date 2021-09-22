@@ -30,7 +30,6 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
                 }
             }
         }
-
         erat.printPrimes();
     }
 
