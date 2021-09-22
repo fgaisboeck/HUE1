@@ -21,7 +21,7 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
         for (int i = 2; i < erat.array.length; i++) {
             if (erat.isPrime(i) == true) {
                 erat.array[i] = true;
-                for (int j = 0; j < erat.array.length; j++) {
+                for (int j = 2; j < erat.array.length; j++) {
                     if (i * j < erat.maxHoehe) {
                         int x = i * j;
                         erat.array[x] = false;
@@ -30,12 +30,7 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
                 }
             }
         }
-        for (int i = 0; i < erat.array.length; i++) {
-            if (erat.array[i] == true) {
-                System.out.println(i);
-            }
 
-        }
         erat.printPrimes();
     }
 
@@ -55,7 +50,7 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
     public void printPrimes() {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == true) {
-                System.out.print(i + " ");
+                System.out.print(i + ",");
             }
         }
     }
