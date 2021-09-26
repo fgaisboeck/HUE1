@@ -1,5 +1,6 @@
 package hue1;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EratosthenesPrimeSieve implements PrimeSieve {
@@ -18,6 +19,7 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
         int hoehe = Integer.parseInt(sc.nextLine());
         EratosthenesPrimeSieve erat = new EratosthenesPrimeSieve(hoehe);
 
+        //Prinzip
         for (int i = 2; i < erat.array.length; i++) {
             if (erat.isPrime(i) == true) {
                 erat.array[i] = true;
@@ -25,11 +27,14 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
                     if (i * j < erat.maxHoehe) {
                         erat.array[i * j] = false;
                     }
-
                 }
             }
         }
         erat.printPrimes();
+        
+        System.out.println("");
+        
+        erat.findeSummen(erat.array);
     }
 
     @Override
@@ -55,21 +60,63 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
     
     public void findeSummen(boolean []primesBoolean)
     {
-        int maxHoehe = primesBoolean.length/2;
-        int []N = new int[maxHoehe];
+        ArrayList<Integer> N_gerade = new ArrayList<>();
+        ArrayList<Integer> primes = new ArrayList<>();
+        ArrayList<String> erg = new ArrayList<>();
         
+       
         
-        for (int i = 0; i < primesBoolean.length; i++) {
+        //N 
+        for (int i = 1; i < primesBoolean.length; i++) {
             if(i%2 == 0)
-                N[i]=i;
+               N_gerade.add(i);
         }
         
+        //Primzahlen
         for (int i = 0; i < primesBoolean.length; i++) {
             if(primesBoolean[i]==true)
             {
+                primes.add(i);
+            }
+        }
+        
+        //funktioniert halb
+        /*
+        for (int i = 0; i < primes.size(); i++) {
+            for (int j = 0; j <primes.size() ; j++) {
+                int zwischenSumme = primes.get(i)+ primes.get(j);
+                if(N_gerade.contains(zwischenSumme)==true)
+                {
+                    
+                    int ergebnis = primes.get(i)+ primes.get(j);
+                    erg.add(ergebnis + " summe: " + ergebnis + " = " + primes.get(i)+" + "+ primes.get(j));
+                }
+            }
+        }
+        */
+        
+        for (int i = 0; i < N_gerade.size(); i++) {
+            
+            for (int j = 0; j < primes.size(); j++) {
+                for (int k = 0; k < primes.size(); k++) {
+                   if(N_gerade.get(i)== primes.get(j)+primes.get(k))
+                   {
+                    int ergebnis = primes.get(j)+ primes.get(k);
+                    erg.add(ergebnis + " summe: " + ergebnis + " = " + primes.get(j)+" + "+ primes.get(k));
+                   }
+                    
+                }
                 
             }
             
         }
+        
+        for (int i = 0; i < erg.size(); i++) {
+            System.out.println(erg.get(i)); 
+        }
+        
+         System.out.println("N_gerade: " + N_gerade.size());
+        System.out.println("primes: " + primes.size());
+        System.out.println("erg: " + erg.size());
     }
 }
