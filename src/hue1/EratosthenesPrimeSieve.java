@@ -23,8 +23,7 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
                 erat.array[i] = true;
                 for (int j = 2; j < erat.array.length; j++) {
                     if (i * j < erat.maxHoehe) {
-                        int x = i * j;
-                        erat.array[x] = false;
+                        erat.array[i * j] = false;
                     }
 
                 }
@@ -51,6 +50,26 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
             if (array[i] == true) {
                 System.out.print(i + ",");
             }
+        }
+    }
+    
+    public void findeSummen(boolean []primesBoolean)
+    {
+        int maxHoehe = primesBoolean.length/2;
+        int []N = new int[maxHoehe];
+        
+        
+        for (int i = 0; i < primesBoolean.length; i++) {
+            if(i%2 == 0)
+                N[i]=i;
+        }
+        
+        for (int i = 0; i < primesBoolean.length; i++) {
+            if(primesBoolean[i]==true)
+            {
+                
+            }
+            
         }
     }
 }
