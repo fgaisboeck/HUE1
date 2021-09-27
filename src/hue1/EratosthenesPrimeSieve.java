@@ -78,24 +78,21 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
         }
 
         //Algo
+        //contains funktioniert nicht
         boolean b = true;
         for (int i = 0; i < N_gerade.size(); i++) {
- b = true;
+            b = true;
             for (int j = 0; j < primes.size(); j++) {
-               
+
                 for (int k = 0; k < primes.size(); k++) {
-                    if (N_gerade.get(i) == primes.get(j) + primes.get(k)&& b==true) {
-                        b=false;
+                    if (N_gerade.get(i) == primes.get(j) + primes.get(k) && b == true) {
+                        b = false;
                         int ergebnis = primes.get(j) + primes.get(k);
                         erg.add(ergebnis + " summe: " + ergebnis + " = " + primes.get(j) + " + " + primes.get(k));
                     }
-
                 }
-
             }
-
         }
-
         for (int i = 0; i < erg.size(); i++) {
             System.out.println(erg.get(i));
         }
