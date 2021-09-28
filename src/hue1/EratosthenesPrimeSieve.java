@@ -11,6 +11,10 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
     public EratosthenesPrimeSieve(int maxHoehe) {
         this.maxHoehe = maxHoehe;
         array = new boolean[maxHoehe];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = true;
+
+        }
     }
 
     public static void main(String[] args) {
@@ -20,16 +24,15 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
         EratosthenesPrimeSieve erat = new EratosthenesPrimeSieve(hoehe);
 
         //Prinzip
+        erat.array[0] = false;
+        erat.array[1] = false;
+        erat.array[2] = true;
         for (int i = 2; i < erat.array.length; i++) {
-            if (erat.isPrime(i) == true) {
-                erat.array[i] = true;
-                for (int j = 2; j < erat.array.length; j++) {
-                    if (i * j < erat.maxHoehe) {
-                        erat.array[i * j] = false;
-                    }
-                }
+            for (int j = 2; j < erat.array.length && erat.array[i] == true && i * j < erat.array.length; j++) {
+                erat.array[i * j] = false;
             }
         }
+
         erat.printPrimes();
 
         System.out.println("");
@@ -39,14 +42,11 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
 
     @Override
     public boolean isPrime(int p) {
-        boolean b = true;
-        for (int i = 2; i < p; i++) {
-            if (p % i == 0) {
-                b = false;
-                break;
-            }
+        if (array[p] == true) {
+            return true;
         }
-        return b;
+        return false;
+
     }
 
     @Override
@@ -59,16 +59,8 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
     }
 
     public void findeSummen(boolean[] primesBoolean) {
-        ArrayList<Integer> N_gerade = new ArrayList<>();
         ArrayList<Integer> primes = new ArrayList<>();
         ArrayList<String> erg = new ArrayList<>();
-
-        //N
-        for (int i = 1; i < primesBoolean.length; i++) {
-            if (i % 2 == 0) {
-                N_gerade.add(i);
-            }
-        }
 
         //Primzahlen
         for (int i = 0; i < primesBoolean.length; i++) {
@@ -78,14 +70,13 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
         }
 
         //Algo
-        //contains funktioniert nicht
         boolean b = true;
-        for (int i = 0; i < N_gerade.size(); i++) {
+        for (int i = 2; i < primesBoolean.length; i += 2) {
             b = true;
-            for (int j = 0; j < primes.size(); j++) {
+            for (int j = 0; j < primes.size() && b == true; j++) {
 
-                for (int k = 0; k < primes.size(); k++) {
-                    if (N_gerade.get(i) == primes.get(j) + primes.get(k) && b == true) {
+                for (int k = 0; k < primes.size() && b == true; k++) {
+                    if (i == primes.get(j) + primes.get(k)) {
                         b = false;
                         int ergebnis = primes.get(j) + primes.get(k);
                         erg.add(ergebnis + " summe: " + ergebnis + " = " + primes.get(j) + " + " + primes.get(k));
@@ -95,6 +86,7 @@ public class EratosthenesPrimeSieve implements PrimeSieve {
         }
         for (int i = 0; i < erg.size(); i++) {
             System.out.println(erg.get(i));
+
         }
     }
 }
